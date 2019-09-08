@@ -3,18 +3,15 @@ import discord
 
 class MyClient(discord.Client):
     async def on_ready(self):
-        print('Logged in as')
-        print(self.user.name)
-        print(self.user.id)
-        print('------')
+        print('Logged on as', self.user)
 
     async def on_message(self, message):
-        # we do not want the bot to reply to itself
-        if message.author.id == self.user.id:
+        # don't respond to ourselves
+        if message.author == self.user:
             return
 
-        if message.content.startswith('!hello'):
-            await message.channel.send('Hello {0.author.mention}'.format(message))
+        if message.content == 'ping':
+            await message.channel.send('pong')
 
 client = MyClient()
-client.run('NjIwMzQ2ODUxNDUwODE0NDc4.XXVeOA.3XtmNUmTdrOr6Z9zsqFxda7-5nE')
+client.run('NjIwMzQ2ODUxNDUwODE0NDc4.XXVpxQ.TIlNu91Z5PJR3iHtPeC0PQLh2BA')
