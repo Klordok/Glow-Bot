@@ -1,5 +1,12 @@
 
 import discord
+import urllib
+
+with open("D:/GitHub/Discord Bot/tokens.txt") as f:
+	file_content = f.read()
+
+token = file_content.strip()
+print(token)
 
 class MyClient(discord.Client):
     async def on_ready(self):
@@ -16,5 +23,7 @@ class MyClient(discord.Client):
         if message.content.startswith('!hello'):
             await message.channel.send('Hello {0.author.mention}'.format(message))
 
+
 client = MyClient()
-client.run('NjIwMzQ2ODUxNDUwODE0NDc4.XXVpxQ.TIlNu91Z5PJR3iHtPeC0PQLh2BA')
+print(token)
+client.run(token)
