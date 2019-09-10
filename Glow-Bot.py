@@ -1,12 +1,19 @@
 
 import discord
 import urllib
+import json
+
+def get_catfact():
+    site_data = urllib.request.urlopen('https://catfact.ninja/fact')
+    jsonPart = site_data.read().decode("utf-8")
+    fact_data = json.loads(jsonPart)
+    return fact_data['fact']
 
 with open("D:/GitHub/Discord Bot/tokens.txt") as f:
 	file_content = f.read()
 
 token = file_content.strip()
-print(token)
+
 
 class MyClient(discord.Client):
     async def on_ready(self):
@@ -22,8 +29,10 @@ class MyClient(discord.Client):
 
         if message.content.startswith('!hello'):
             await message.channel.send('Hello {0.author.mention}'.format(message))
-
+            
+        if message.content.startswith('!catfact'):
+            await message.channel.send(get_catfact())
 
 client = MyClient()
-print(token)
+
 client.run(token)
